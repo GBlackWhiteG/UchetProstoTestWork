@@ -1,0 +1,11 @@
+main > .container {
+    padding: 70px 15px 20px;
+}
+
+.active-topic {
+    background-color: yellow;
+}
+
+.active-subtopics {
+    display: flex !important;
+}
