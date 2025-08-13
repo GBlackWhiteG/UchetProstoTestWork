@@ -15,8 +15,8 @@ Thumbs.db
 # composer vendor dir
 /vendor
 
-# composer itself is not needed
-composer.phar
+# composer itself is not needed, мне нужен
+# composer.phar
 
 # Mac DS_Store Files
 .DS_Store
