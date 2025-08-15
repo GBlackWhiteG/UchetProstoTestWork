@@ -9,3 +9,68 @@ main > .container {
 .active-subtopics {
     display: flex !important;
 }
+
+.active-content {
+    display: block !important;
+}
+
+.delete-update-btn {
+    font-size: 14px;
+    border: none;
+    border-radius: 2px;
+    background-color: lightgray;
+    padding: 0 5px;
+}
+
+.user-modal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.modal-wrapper {
+    max-width: 500px;
+    width: 100%;
+    border-radius: 1rem;
+    background-color: #fff;
+    padding: 2rem 1.5rem;
+    position: relative;
+}
+
+.modal-close-btn-wrapper {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+}
+
+.modal-close-btn {
+    display: block;
+    width: 30px;
+    aspect-ratio: 1;
+    position: relative;
+}
+
+.modal-close-btn::before, .modal-close-btn::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #000;
+    position: absolute;
+    top: 44%;
+}
+
+.modal-close-btn::before {
+    rotate: 45deg;
+}
+
+.modal-close-btn::after {
+    rotate: 135deg;
+}

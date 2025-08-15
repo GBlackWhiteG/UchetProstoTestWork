@@ -1,55 +1,83 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const data = {
-        "Тема 1": {
-            "Подтема 1.1": "Некий текст, привязанный к Подтеме 1.1",
-            "Подтема 1.2": "Некий текст, привязанный к Подтеме 1.2",
-            "Подтема 1.3": "Некий текст, привязанный к Подтеме 1.3"
-        },
-        "Тема 2": {
-            "Подтема 2.1": "Некий текст, привязанный к Подтеме 2.1",
-            "Подтема 2.2": "Некий текст, привязанный к Подтеме 2.2",
-            "Подтема 2.3": "Некий текст, привязанный к Подтеме 2.3"
-        }
-    };
+    const dealButton = document.getElementById('dealButton');
+    const contactButton = document.getElementById('contactButton');
 
-    const topicButtons = document.querySelectorAll('.topic-button');
-    const subTopicButtons = document.querySelectorAll('.subtopic-button');
-    const contentBlock = document.getElementById('content');
+    const deals = document.getElementById('deals');
+    const contacts = document.getElementById('contacts');
+
+    const dealsContent = document.getElementById('dealsContent');
+    const contactsContent = document.getElementById('contactsContent');
+
     const activeClass = 'active-topic';
+    const activeSubClass = 'active-subtopics'
+    const activeContentClass = 'active-content';
 
-    let activeTopicId = 0;
-    let activeSubtopicId = 0;
+    deals.querySelector('span').classList.add(activeClass);
+    dealsContent.querySelector('div').classList.add(activeContentClass);
 
-    const changeActiveTopicButton = (index, button) => {
-        topicButtons[activeTopicId].classList.remove(activeClass);
-        activeTopicId = index;
-        button.classList.add(activeClass);
+    const clearClasses = (elements, className) => {
+        elements.forEach((ell) => {
+            ell.classList.remove(className);
+        })
     }
 
-    const changeActiveSubtopicButton = (index, button) => {
-        subTopicButtons[activeSubtopicId].classList.remove(activeClass);
-        activeSubtopicId = index;
-        button.classList.add(activeClass);
+    dealButton.addEventListener('click',  function () {
+        deals.classList.add(activeSubClass);
+        contacts.classList.remove(activeSubClass);
+        this.classList.add(activeClass);
+        contactButton.classList.remove(activeClass);
 
-        contentBlock.textContent = data[topicButtons[activeTopicId].textContent][button.textContent];
-    }
+        clearClasses(deals.querySelectorAll('span'), activeClass);
+        deals.querySelector('span').classList.add(activeClass);
 
-    Object.values(topicButtons).forEach((button, index) => {
-        button.addEventListener('click', function () {
-            if (index === activeTopicId) return;
-            changeActiveTopicButton(index, button);
-            changeActiveSubtopicButton(0, subTopicButtons[0]);
+        dealsContent.classList.remove('d-none');
+        contactsContent.classList.add('d-none');
 
-            const buttonNames = Object.keys(data[button.textContent]);
-            Object.values(subTopicButtons).forEach((btn, index) => {
-                btn.textContent = buttonNames[index];
-            });
+        clearClasses(dealsContent.querySelectorAll('div'), activeContentClass);
+        dealsContent.querySelector('div').classList.add(activeContentClass);
+    });
 
-            contentBlock.textContent = data[topicButtons[activeTopicId].textContent][subTopicButtons[0].textContent];
+    contactButton.addEventListener('click',  function () {
+        contacts.classList.add(activeSubClass);
+        deals.classList.remove(activeSubClass);
+        this.classList.add(activeClass);
+        dealButton.classList.remove(activeClass);
+
+        clearClasses(contacts.querySelectorAll('span'), activeClass);
+        contacts.querySelector('span').classList.add(activeClass);
+
+        contactsContent.classList.remove('d-none');
+        dealsContent.classList.add('d-none');
+
+        clearClasses(contactsContent.querySelectorAll('div'), activeContentClass);
+        contactsContent.querySelector('div').classList.add(activeContentClass);
+    });
+
+    deals.querySelectorAll('span').forEach((btn) => {
+        btn.addEventListener('click', function () {
+            const id = btn.dataset.deal;
+            const activeBtn = document.getElementById(`deal${id}`);
+            const contentItem = document.getElementById(`dealData${id}`);
+
+            clearClasses(deals.querySelectorAll('span'), activeClass);
+            activeBtn.classList.add(activeClass);
+
+            clearClasses(dealsContent.querySelectorAll('div'), activeContentClass);
+            contentItem.classList.add(activeContentClass);
         });
-    });
+    })
 
-    Object.values(subTopicButtons).forEach((button, index) => {
-        button.addEventListener('click', () => changeActiveSubtopicButton(index, button));
-    });
+    contacts.querySelectorAll('span').forEach((btn) => {
+        btn.addEventListener('click', function () {
+            const id = btn.dataset.contact;
+            const activeBtn = document.getElementById(`contact${id}`);
+            const contentItem = document.getElementById(`contactData${id}`);
+
+            clearClasses(contacts.querySelectorAll('span'), activeClass);
+            activeBtn.classList.add(activeClass);
+
+            clearClasses(contactsContent.querySelectorAll('div'), activeContentClass);
+            contentItem.classList.add(activeContentClass);
+        });
+    })
 });
